@@ -1,0 +1,108 @@
+/*******************************************************************************************
+  Compiler Directives
+*******************************************************************************************/
+#DEFINE_CONSTANT BUFFER_SIZE 4096
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+#ENCODING_ASCII
+/*******************************************************************************************
+  Include Libraries
+*******************************************************************************************/
+#user_simplsharp_library "TCP_Client"
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+*******************************************************************************************/
+digital_input
+    Initialize,
+    Connect,
+    Disconnect,
+    EnableDebug;
+analog_input
+    Port;
+string_input
+    IP[16],
+    Tx[BUFFER_SIZE];
+digital_output
+    InitializedFb,
+    ConnectedFb,
+    _skip_;
+analog_output
+    ConnectionStatusAnalogFb;
+string_output
+    ConnectionStatusSerialFb,
+    ErrorStatusFb,
+    Rx;
+    
+TCPClientSsharp tcpClient;
+/*******************************************************************************************
+  Event Handlers
+*******************************************************************************************/
+push Initialize
+{
+    tcpClient.Initialize(IP, Port, BUFFER_SIZE);
+}
+
+push Connect
+{
+    tcpClient.Connect();    
+}
+
+push Disconnect
+{
+    tcpClient.Disconnect();
+}
+
+push EnableDebug
+{
+    tcpClient.EnableDebug();
+}
+
+release EnableDebug
+{
+     tcpClient.DisableDebug();
+}
+
+change Tx
+{
+    tcpClient.DataTransmit(Tx);
+}
+
+callback function ConnectedFbCallbackFunction(integer connected)
+{
+    ConnectedFb = connected;
+}  
+  
+callback function ConnectionStatusCallbackFunction(string serialStatus, integer analogStatus)
+{
+    ConnectionStatusSerialFb = serialStatus;
+    ConnectionStatusAnalogFb = analogStatus;
+}
+
+callback function InitializedCallbackFunction(integer status)
+{
+    InitializedFb = status;    
+}
+
+callback function ErrorStatusCallbackFunction(string err)
+{
+    ErrorStatusFb = err;
+}
+
+callback function ReceiveDataCallbackFunction(string data)
+{
+    Rx = data;
+}
+/*******************************************************************************************
+  Main()
+*******************************************************************************************/
+
+Function Main()
+{
+    waitForInitializationComplete();
+    registerDelegate(tcpClient, ConnectedFbStatus, ConnectedFbCallbackFunction);
+    registerDelegate(tcpClient, ReceiveData, ReceiveDataCallbackFunction);
+    registerDelegate(tcpClient, ConnectionStatus, ConnectionStatusCallbackFunction);
+    registerDelegate(tcpClient, InitializedStatus, InitializedCallbackFunction);
+    registerDelegate(tcpClient, ErrorStatus, ErrorStatusCallbackFunction);
+}

@@ -1,0 +1,14 @@
+E:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\bin\Debug\TCP_Client.dll
+E:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\bin\Debug\TCP_Client.pdb
+E:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\bin\Debug\SimplSharpCustomAttributesInterface.dll
+E:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\bin\Debug\SimplSharpHelperInterface.dll
+E:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\obj\Debug\ResolveAssemblyReference.cache
+E:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\obj\Debug\TCP_Client.dll
+E:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\obj\Debug\TCP_Client.pdb
+D:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\bin\Debug\TCP_Client.dll
+D:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\bin\Debug\TCP_Client.pdb
+D:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\bin\Debug\SimplSharpCustomAttributesInterface.dll
+D:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\bin\Debug\SimplSharpHelperInterface.dll
+D:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\obj\Debug\ResolveAssemblyReference.cache
+D:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\obj\Debug\TCP_Client.dll
+D:\C#\s#\TCP_Client_Ssharp\TCPClient\TCPClient\obj\Debug\TCP_Client.pdb
