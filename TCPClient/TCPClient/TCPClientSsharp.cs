@@ -6,12 +6,6 @@ using System.Collections.Generic;
 
 namespace TCP_Client
 {
-    public delegate void ReceiveDataHandler(SimplSharpString data);
-    public delegate void ConnectedFbStatusHandler(ushort status);
-    public delegate void ConnectionStatusHandler(SimplSharpString serialStatus, ushort analogStatus);
-    public delegate void InitializedStatusHandler(ushort status);
-    public delegate void ErrorStatusHandler(SimplSharpString error);
-
     public class TCPClientSsharp
     {
         #region Properties
@@ -21,11 +15,21 @@ namespace TCP_Client
         #endregion
 
         #region Delegates
+        public delegate void ReceiveDataHandler(SimplSharpString data);
         public ReceiveDataHandler ReceiveData { get; set; }
+
+        public delegate void ConnectedFbStatusHandler(ushort status);
         public ConnectedFbStatusHandler ConnectedFbStatus { get; set; }
+
+        public delegate void ConnectionStatusHandler(SimplSharpString serialStatus, ushort analogStatus);
         public ConnectionStatusHandler ConnectionStatus { get; set; }
+
+        public delegate void InitializedStatusHandler(ushort status);
         public InitializedStatusHandler InitializedStatus { get; set; }
+
+        public delegate void ErrorStatusHandler(SimplSharpString error);
         public ErrorStatusHandler ErrorStatus { get; set; }
+       
         #endregion
 
         #region S+ Methods
@@ -89,11 +93,13 @@ namespace TCP_Client
         public void EnableDebug()
         {
             _debug = true;
+            CrestronConsole.PrintLine("Debug Enabled");
         }
 
         public void DisableDebug()
         {
             _debug = false;
+            CrestronConsole.PrintLine("Debug Disabled");
         }
 
         public void DataTransmit(SimplSharpString tx)
@@ -110,7 +116,8 @@ namespace TCP_Client
 
         private void OnSocketStatusChange(TCPClient tcpClient, SocketStatus sockStatus)
         {
-            ConnectionStatus(sockStatus.ToString(), _sockStatusDict[sockStatus]);
+            if(_sockStatusDict.ContainsKey(sockStatus))
+                ConnectionStatus(sockStatus.ToString(), _sockStatusDict[sockStatus]);
             if (sockStatus == SocketStatus.SOCKET_STATUS_CONNECTED)
                 ConnectedFbStatus(1);
             else
@@ -177,7 +184,9 @@ namespace TCP_Client
             {SocketStatus.SOCKET_STATUS_BROKEN_LOCALLY, 5},
             {SocketStatus.SOCKET_STATUS_DNS_LOOKUP, 6},
             {SocketStatus.SOCKET_STATUS_DNS_FAILED, 7},
-            {SocketStatus.SOCKET_STATUS_DNS_RESOLVED, 8}
+            {SocketStatus.SOCKET_STATUS_DNS_RESOLVED, 8},
+            {SocketStatus.SOCKET_STATUS_LINK_LOST,9},
+            {SocketStatus.SOCKET_STATUS_SOCKET_NOT_EXIST,10}
         };
         #endregion
     }
