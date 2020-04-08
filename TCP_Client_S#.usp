@@ -60,7 +60,7 @@ push EnableDebug
 
 release EnableDebug
 {
-     tcpClient.DisableDebug();
+    tcpClient.DisableDebug();
 }
 
 change Tx
